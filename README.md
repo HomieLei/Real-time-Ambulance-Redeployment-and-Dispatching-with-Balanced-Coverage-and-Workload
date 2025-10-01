@@ -1,33 +1,56 @@
 # 🚑 Real-time Ambulance Redeployment and Dispatching with Balanced Coverage and Workload
 
-本專案針對 **緊急醫療服務 (EMS)** 系統，模擬救護車的動態調度與再部署策略，並比較傳統靜態 (Static) 政策與基於 **Redeployment Optimization Approach (ROA)** 的動態政策，目標是提升病患服務覆蓋率並降低救護車工作負載的不均衡。
+本專案針對 **緊急醫療服務 (EMS)** 系統，模擬救護車的動態調度與再部署策略，並比較傳統靜態 (Static) 政策與基於 **Redeployment Optimization Approach (ROA)** 的動態政策，同時也根據救護車初始位置及病患種類等條件，細分為四種情境進行模擬，期望能提升病患服務覆蓋率並降低救護車工作負載的不均衡。
 
 ---
 
 ## 📌 專案背景
-緊急醫療服務 (EMS) 接收到的呼叫隨機且不可預測，包括到達時間、地點及服務需求。傳統靜態政策通常要求救護車在完成任務後返回原始位置，然而：
+緊急醫療服務 (EMS) 接收到的呼叫隨機且不可預測，包括到達時間、地點及服務需求。傳統靜態政策通常要求救護車在完成任務後返回原始位置待命，然而其具有以下缺點：
 - 無法因應動態需求
 - 可能導致服務覆蓋出現空缺
-- 增加平均反應時間
+- 平均反應時間拉長
 
 因此，本專案提出 **即時動態再部署策略 (ROA)**，在呼叫處理與救護車閒置之際，決定是否重新配置救護車，以提升系統覆蓋率與降低平均等待時間。
 
 ---
 
 ## 🛠 方法與模型
+### 符號定義
+<div align="center">
+<img src="images/notation.png" width="700" alt="notation">
+</div>
+
 ### 模擬方式
 - **離散事件模擬 (Discrete-Event Simulation, DES)**
   - 模擬呼叫到達、服務完成、再部署完成等事件
   - 比較 **Static Policy** 與 **ROA Policy**
 
+<div align="center">
+<img src="images/event_graph.png" width="500" alt="event_graph">
+</div>
+
 ### 最佳化模型
 - **最大覆蓋選址模型 (Maximal Covering Location Problem, MCLP)**  
-  用於決定初始救護車配置。
+  - 用於決定初始救護車配置。
+
+<div align="center">
+  <img src="images/mclp_model.png" width="400" alt="mclp_model">
+</div>
+
 - **Redeployment Optimization Approach (ROA)**  
-  - Step 1: 最大化覆蓋率  
-  - Step 2: 在維持覆蓋率的條件下最小化總移動時間  
   - 限制條件包含：救護車移動時間、工作負載上限、單點限制等  
-  - 使用 **CPLEX** 求解整數線性規劃
+  - Step 1: 最大化覆蓋率  
+
+<div align="center">
+  <img src="images/roa_model_1_1.png" width="700" alt="roa_model">
+  <img src="images/roa_model_1_2.png" width="700" alt="roa_model">
+</div>
+
+  - Step 2: 在維持覆蓋率的條件下最小化總移動時間  
+
+<div align="center">
+  <img src="images/roa_model_2.png" width="700" alt="roa_model">
+</div>
 
 ---
 
@@ -39,6 +62,10 @@
   - Type 1：10 分鐘內到達
   - Type 2：不同限制 (15, 10, 5 分鐘)
 - **資料來源**：2004 年美國北卡羅來納州 Mecklenburg County
+<div align="center">
+  <img src="images/dataset_1.png" width="300" alt="dataset_1">
+  <img src="images/dataset_2.png" width="300" alt="dataset_2">
+</div>
 
 ---
 
@@ -52,10 +79,19 @@
 ---
 
 ## 📂 專案結構
+├── SimClasses.py #
+
+├── SimFunctions.py #
+
+├── SimRNG.py # 
+
 ├── project_final.py # 主程式 (模擬 + 最佳化)
+
 ├── demand_volume.xlsx # 區域需求資料
-├── figure/ # 模擬結果圖表
-└── 系統模擬期末報告_v4.pptx # 簡報文件
+
+├── simulation_result/ # 模擬結果
+
+└──  model4_sensitivity/ # 敏感度分析資料
 
 ---
 
@@ -73,6 +109,7 @@
 安裝方式：
 ```bash
 pip install numpy pandas matplotlib scipy tqdm
+```
 
 ---
 
@@ -83,6 +120,7 @@ pip install numpy pandas matplotlib scipy tqdm
 3. 執行模擬程式：
    ```bash
    python project_final.py
+   ```
 
 ---
 
