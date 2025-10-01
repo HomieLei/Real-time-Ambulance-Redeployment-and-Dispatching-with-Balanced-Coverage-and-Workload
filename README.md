@@ -1,6 +1,9 @@
 # 🚑 Real-time Ambulance Redeployment and Dispatching with Balanced Coverage and Workload
 
-本研究針對 **緊急醫療服務 (EMS)** 系統，模擬救護車的動態調度與再部署策略，並比較傳統靜態 (Static) 政策與基於 **Redeployment Optimization Approach (ROA)** 的動態政策，同時也根據救護車初始位置及病患種類等條件，細分為四種情境進行模擬，期望能提升病患服務覆蓋率並降低救護車工作負載的不均衡。
+本研究針對 **緊急醫療服務 (EMS)** 系統，模擬救護車的動態調度與再部署策略，並比較傳統靜態 (Static) 策略與基於 **Redeployment Optimization Approach (ROA)** 的動態策略，同時也根據救護車初始位置及病患種類等條件，細分為四種情境進行模擬，期望能提升病患服務覆蓋率並降低救護車工作負載的不均衡。
+
+**備註**：  如需詳細了解研究內容，可以通過以下 Google Sheet 連結查看：
+[查看簡報](<https://docs.google.com/presentation/d/1EFKRYEs6JwyWuOLSUBfQSSOEgx53GKqA/edit?usp=sharing&ouid=104341241876965265682&rtpof=true&sd=true>)
 
 ---
 
